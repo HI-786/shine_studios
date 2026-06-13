@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shine Studios — Content Creation & Social Media Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Bricolage+Grotesque:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --red: #FF6A00;
+      --red-light: #FF8A33;
+      --red-pale: #FFF2E8;
+      --red-mid: #FFD9BD;
+      --ink: #1A1210;
+      --ink2: #3D2B26;
+      --warm: #F7F2F0;
+      --warm2: #EDE5E2;
+      --warm3: #DDD0CC;
+      --muted: #8A7370;
+      --white: #FFFFFF;
+      --gold: #C8933A;
+      --r: 16px;
+      --r-sm: 8px;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--warm);
+      color: var(--ink);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cur {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: multiply;
+    }
+
+    body:not(.mobile) * {
+      cursor: none
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 1.2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .3s, backdrop-filter .3s, box-shadow .3s;
+    }
+
+    nav.scrolled {
+      background: rgba(247, 242, 240, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 var(--warm3);
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--red)
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      font-weight: 400;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink)
+    }
+
+    .nav-hire {
+      padding: 0.5rem 1.4rem;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: background .2s, transform .15s;
+    }
+
+    .nav-hire:hover {
+      background: var(--red);
+      transform: scale(1.03)
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform .3s, opacity .3s
+    }
+
+    /* ── MOBILE MENU ── */
+    .mob-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--warm);
+      z-index: 190;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .mob-menu.open {
+      display: flex
+    }
+
+    .mob-menu a {
+      font-family: 'Fraunces', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .mob-menu a:hover {
+      color: var(--red)
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto 1fr auto;
+      padding: 8rem 3rem 3rem;
+      position: relative;
+      overflow: hidden;
+      align-items: center;
+      gap: 0 2rem;
+    }
+
+    /* Subtle dot grid bg */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--warm3) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-left {
+      grid-column: 1;
+      grid-row: 1/4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-center {
+      grid-column: 2;
+      grid-row: 1/4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-right {
+      grid-column: 3;
+      grid-row: 1/4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--red);
+    }
+
+    .hero-headline {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.2rem, 4vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--red);
+      font-weight: 300;
+    }
+
+    .hero-quote {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 260px;
+      border-left: 2px solid var(--red-mid);
+      padding-left: 1rem;
+    }
+
+    /* Tools row */
+    .hero-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .hero-tools-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .tools-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tool-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem;
+      background: var(--white);
+      border: 1px solid var(--warm3);
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--ink2);
+      transition: border-color .2s, transform .2s;
+    }
+
+    .tool-pill:hover {
+      border-color: var(--red);
+      transform: translateY(-1px)
+    }
+
+    .tool-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    /* Services box */
+    .services-box {
+      background: var(--ink);
+      color: var(--white);
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--r);
+    }
+
+    .services-box-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .services-box-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .services-box-list li {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .services-box-list li.red {
+      color: var(--red-light)
+    }
+
+    .services-box-list li::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    /* Right side text blocks */
+    .hero-r-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 3vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    .hero-r-title em {
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300
+    }
+
+    .hero-stat {
+      text-align: right;
+    }
+
+    .hero-stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    /* Hero photo */
+    .hero-photo-wrap {
+      position: relative;
+      width: clamp(220px, 28vw, 380px);
+    }
+
+    .hero-photo-bg {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 85%;
+      background: var(--red-pale);
+      border-radius: 200px 200px 0 0;
+    }
+
+    .hero-photo {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .hero-photo-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      z-index: 3;
+      background: linear-gradient(to top, var(--warm) 30%, transparent);
+    }
+
+    .hero-name-band {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      z-index: 4;
+      text-align: center;
+    }
+
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .hero-name-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--warm3);
+      border-bottom: 1px solid var(--warm3);
+      background: var(--white);
+      overflow: hidden;
+      padding: 0.9rem 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 2.5rem;
+      animation: mq 20s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused
+    }
+
+    @keyframes mq {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .mq-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 400;
+    }
+
+    .mq-dot {
+      color: var(--red);
+      font-size: 0.5rem
+    }
+
+    /* ── SECTION COMMONS ── */
+    section {
+      padding: 7rem 3rem
+    }
+
+    .sec-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--red);
+    }
+
+    .sec-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .sec-title em {
+      font-style: italic;
+      color: var(--red);
+      font-weight: 300
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative
+    }
+
+    .about-img-frame {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-radius: var(--r);
+      background: var(--warm);
+    }
+
+    .about-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      filter: contrast(1.05);
+      transition: transform .6s ease;
+    }
+
+    .about-img-frame:hover img {
+      transform: scale(1.04)
+    }
+
+    .about-img-accent {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 80px;
+      height: 80px;
+      background: var(--red-pale);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .about-img-tag {
+      position: absolute;
+      bottom: 1.5rem;
+      left: -1.5rem;
+      background: var(--ink);
+      color: var(--white);
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--r-sm);
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .about-img-tag strong {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--red);
+      display: block;
+      line-height: 1;
+    }
+
+    .about-text {}
+
+    .about-intro {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--ink2);
+      margin: 1.5rem 0;
+    }
+
+    .about-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem
+    }
+
+    .chip {
+      padding: 0.38rem 0.9rem;
+      border: 1px solid var(--warm3);
+      border-radius: 100px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 400;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+
+    .chip:hover {
+      border-color: var(--red);
+      color: var(--red);
+      background: var(--red-pale)
+    }
+
+    .about-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--warm3);
+      border: 1px solid var(--warm3);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .astat {
+      background: var(--white);
+      padding: 1.2rem 1rem;
+      text-align: center;
+    }
+
+    .astat-n {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .astat-l {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem
+    }
+
+    /* ── WORK / PROJECTS ── */
+    #work {
+      background: var(--warm)
+    }
+
+    .work-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin: 3rem 0 2.5rem;
+    }
+
+    .wtab {
+      padding: 0.55rem 1.4rem;
+      border: 1.5px solid var(--warm3);
+      border-radius: 100px;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .wtab.active,
+    .wtab:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--white);
+    }
+
+    .work-panel {
+      display: none
+    }
+
+    .work-panel.active {
+      display: block
+    }
+
+    /* Folder row */
+    .folders-row {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--warm3) transparent;
+    }
+
+    .folders-row::-webkit-scrollbar {
+      height: 4px
+    }
+
+    .folders-row::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    .folders-row::-webkit-scrollbar-thumb {
+      background: var(--warm3);
+      border-radius: 4px
+    }
+
+    /* Folder card */
+    .folder {
+      flex-shrink: 0;
+      width: 220px;
+      cursor: pointer;
+      transition: transform .25s;
+      position: relative;
+    }
+
+    .folder:hover {
+      transform: translateY(-6px)
+    }
+
+    .folder-tab {
+      width: 80px;
+      height: 14px;
+      background: var(--folder-color, #FFD9BD);
+      border-radius: 6px 6px 0 0;
+      margin-left: 16px;
+    }
+
+    .folder-body {
+      background: var(--folder-color, #FFE8D6);
+      border-radius: 0 12px 12px 12px;
+      padding: 1.2rem 1rem 1rem;
+      min-height: 170px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    /* Stacked preview images inside folder */
+    .folder-previews {
+      position: relative;
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .fp {
+      position: absolute;
+      width: 80px;
+      height: 100px;
+      background: var(--white);
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .fp img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .fp-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--warm2), var(--warm3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding: 0.3rem;
+    }
+
+    .fp:nth-child(1) {
+      transform: rotate(-8deg) translateX(-28px);
+      z-index: 1
+    }
+
+    .fp:nth-child(2) {
+      transform: rotate(-2deg) translateX(-8px);
+      z-index: 2
+    }
+
+    .fp:nth-child(3) {
+      transform: rotate(5deg) translateX(22px);
+      z-index: 3
+    }
+
+    .folder-name {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .folder-count {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      letter-spacing: 0.06em;
+    }
+
+    .folder-arrow {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--ink);
+      transition: background .2s, transform .2s;
+    }
+
+    .folder:hover .folder-arrow {
+      background: var(--red);
+      color: var(--white);
+      transform: scale(1.1)
+    }
+
+    /* ── LIGHTBOX OVERLAY ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(26, 18, 16, 0.7);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    #lightbox.open {
+      display: flex
+    }
+
+    .lb-box {
+      background: var(--white);
+      border-radius: 20px;
+      width: min(900px, 100%);
+      max-height: 90svh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lb-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--warm3);
+    }
+
+    .lb-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .lb-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--warm3);
+      background: transparent;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+
+    .lb-close:hover {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white)
+    }
+
+    .lb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .lb-item {
+      aspect-ratio: 4/5;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--warm);
+      border: 1px solid var(--warm3);
+    }
+
+    .lb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .lb-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--warm2), var(--warm3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--white)
+    }
+
+    .services-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .svc {
+      padding: 2rem;
+      border: 1px solid var(--warm3);
+      border-radius: var(--r);
+      background: var(--warm);
+      transition: border-color .3s, transform .25s, background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .svc::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s;
+    }
+
+    .svc:hover {
+      border-color: var(--red-mid);
+      transform: translateY(-4px);
+      background: var(--white);
+    }
+
+    .svc:hover::after {
+      transform: scaleX(1)
+    }
+
+    .svc-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .svc-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .svc-desc {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--muted)
+    }
+
+    /* ── SOCIAL PROOF / NUMBERS ── */
+    #numbers {
+      background: var(--ink);
+      color: var(--white);
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .numbers-text .sec-label {
+      color: var(--red-light)
+    }
+
+    .numbers-text .sec-label::before {
+      background: var(--red-light)
+    }
+
+    .numbers-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-top: 0.5rem;
+    }
+
+    .numbers-title em {
+      font-style: italic;
+      color: var(--red-light);
+      font-weight: 300
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nstat {
+      background: var(--ink);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .nstat-n {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--red-light);
+      line-height: 1;
+    }
+
+    .nstat-l {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.08em;
+      margin-top: 0.4rem
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: var(--warm)
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .tcard {
+      background: var(--white);
+      border: 1px solid var(--warm3);
+      border-radius: var(--r);
+      padding: 2rem;
+      transition: border-color .3s, transform .25s;
+    }
+
+    .tcard:hover {
+      border-color: var(--red-mid);
+      transform: translateY(-3px)
+    }
+
+    .tcard-stars {
+      color: var(--gold);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px
+    }
+
+    .tcard-text {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: var(--ink2);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .tcard-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border-top: 1px solid var(--warm3);
+      padding-top: 1rem;
+    }
+
+    .tcard-av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--red-pale);
+      border: 1px solid var(--red-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--red);
+      flex-shrink: 0;
+    }
+
+    .tcard-name {
+      font-size: 0.82rem;
+      font-weight: 600
+    }
+
+    .tcard-role {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.1rem
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .contact-left {}
+
+    .contact-big {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.5rem, 5vw, 5.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin: 1rem 0;
+    }
+
+    .contact-big em {
+      font-style: italic;
+      color: var(--red);
+      font-weight: 300
+    }
+
+    .contact-sub {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 380px;
+    }
+
+    .contact-ways {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem
+    }
+
+    .cway {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1rem 1.4rem;
+      border: 1px solid var(--warm3);
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+
+    .cway:hover {
+      border-color: var(--red);
+      background: var(--red-pale);
+      transform: translateX(4px);
+    }
+
+    .cway-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--warm);
+      border: 1px solid var(--warm3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+    }
+
+    .cway:hover .cway-icon {
+      background: var(--red);
+      border-color: var(--red)
+    }
+
+    .cway-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.1rem
+    }
+
+    .cway-val {
+      font-size: 0.9rem;
+      font-weight: 500
+    }
+
+    /* Contact right — big visual */
+    .contact-right {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 3rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-right::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--red);
+      opacity: 0.12;
+    }
+
+    .contact-right::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.1;
+    }
+
+    .cr-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .cr-desc {
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 2rem
+    }
+
+    .cr-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem
+    }
+
+    .cr-items li {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .cr-items li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red-light);
+      flex-shrink: 0;
+    }
+
+    .cr-items li.gold::before {
+      background: var(--gold)
+    }
+
+    .avail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .avail-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.4
+      }
+    }
+
+    /* Social row */
+    .social-row {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap
+    }
+
+    .soc {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--warm3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+
+    .soc:hover {
+      border-color: var(--red);
+      color: var(--red);
+      background: var(--red-pale)
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--warm3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--warm);
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .footer-logo span {
+      color: var(--red)
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── MOBILE ── */
+    @media(max-width:900px) {
+      nav {
+        padding: 1rem 1.4rem
+      }
+
+      .nav-links,
+      .nav-hire {
+        display: none
+      }
+
+      .hamburger {
+        display: flex
+      }
+
+      body.mobile * {
+        cursor: auto
+      }
+
+      #hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        padding: 6rem 1.4rem 2rem;
+        gap: 1.5rem;
+      }
+
+      .hero-left,
+      .hero-right,
+      .hero-center {
+        grid-column: 1;
+        grid-row: auto
+      }
+
+      .hero-center {
+        order: -1
+      }
+
+      .hero-photo-wrap {
+        width: min(280px, 80vw);
+        margin: 0 auto
+      }
+
+      .hero-name {
+        font-size: 3rem
+      }
+
+      .hero-r-title {
+        text-align: left
+      }
+
+      .hero-stat {
+        text-align: left
+      }
+
+      section {
+        padding: 4rem 1.4rem
+      }
+
+      #about {
+        grid-template-columns: 1fr;
+        gap: 2.5rem
+      }
+
+      .about-img-tag {
+        left: 0.5rem
+      }
+
+      .services-intro {
+        grid-template-columns: 1fr
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr
+      }
+
+      #numbers {
+        grid-template-columns: 1fr;
+        gap: 2.5rem
+      }
+
+      .testi-grid {
+        grid-template-columns: 1fr
+      }
+
+      #contact {
+        grid-template-columns: 1fr;
+        gap: 2.5rem
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center
+      }
+
+      .folders-row {
+        gap: 1rem
+      }
+
+      .folder {
+        width: 180px
+      }
+    }
+
+    @media(min-width:901px) and (max-width:1200px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .testi-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    /* ── VIDEO PLAY BUTTON ── */
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.25);
+      transition: background .2s;
+    }
+    .play-btn:hover {
+      background: rgba(0,0,0,0.35);
+    }
+    .play-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      padding-left: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="cur"></div>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu">
+    <a href="#hero" onclick="closeMob()">Home</a>
+    <a href="#about" onclick="closeMob()">About</a>
+    <a href="#work" onclick="closeMob()">Work</a>
+    <a href="#services" onclick="closeMob()">Services</a>
+    <a href="#contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">Shine<span>Studios</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#testimonials">Clients</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-hire">Let's Work</a>
+    <button class="hamburger" onclick="toggleMob()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section id="hero">
+
+    <!-- LEFT -->
+    <div class="hero-left reveal">
+      <div>
+        <div class="hero-tag">Content Agency · 2025</div>
+        <h1 class="hero-headline">
+          Stop the<br /><em>Scroll.</em><br />Start the<br />Story.
+        </h1>
+      </div>
+      <blockquote class="hero-quote">
+        "From raw footage to a reel that converts — every frame is intentional, every cut is a choice."
+      </blockquote>
+      <div class="services-box">
+        <div class="services-box-label">Services</div>
+        <ul class="services-box-list">
+          <li class="red">Short Form Content</li>
+          <li>Social Media Management</li>
+          <li>YouTube Thumbnails</li>
+          <li>Video Editing</li>
+          <li>Brand Content</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CENTER — Photo -->
+    <div class="hero-center">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-bg"></div>
+        <!--
+        REPLACE BELOW with your team / brand photo: <img src="Main.jpg" alt="Shine Studios" class="hero-photo"/>
+        For best results use a photo with subject on white/transparent background
+        or a photo where the subject stands against a plain wall
+      -->
+        <img src="Main.png" alt="Shine Studios" class="hero-photo" />
+        <div class="hero-photo-fade"></div>
+      </div>
+      <div class="hero-name-band">
+        <!--<div class="hero-name">Shine Studios</div>-->
+        <div class="hero-name-sub">Content & Social Media Agency</div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right reveal" style="transition-delay:.15s">
+      <div class="hero-r-title">
+        Turning<br />Ideas<br /><em>Into</em><br />Stories
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Projects Delivered</div>
+      </div>
+      <div class="hero-tools">
+        <div class="hero-tools-label">Tools</div>
+        <div class="tools-row">
+          <span class="tool-pill"><span class="tool-dot"></span>Photoshop</span>
+          <span class="tool-pill"><span class="tool-dot"></span>Premiere Pro</span>
+          <span class="tool-pill"><span class="tool-dot"></span>CapCut</span>
+          <span class="tool-pill"><span class="tool-dot"></span>Canva</span>
+          <span class="tool-pill"><span class="tool-dot"></span>Lightroom</span>
+          <span class="tool-pill"><span class="tool-dot"></span>Audition</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="mqTrack">
+      <span class="mq-item">Content Creation <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Short Form Reels <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Social Media Management <span class="mq-dot">✦</span></span>
+      <span class="mq-item">YouTube Thumbnails <span class="mq-dot">✦</span></span>
+      <span class="mq-item">TikTok Editing <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Instagram Reels <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Brand Content <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Video Editing <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Influencer Strategy <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Content Creation <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Short Form Reels <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Social Media Management <span class="mq-dot">✦</span></span>
+      <span class="mq-item">YouTube Thumbnails <span class="mq-dot">✦</span></span>
+      <span class="mq-item">TikTok Editing <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Instagram Reels <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Brand Content <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Video Editing <span class="mq-dot">✦</span></span>
+      <span class="mq-item">Influencer Strategy <span class="mq-dot">✦</span></span>
+    </div>
+  </div>
+
+  <!-- ══════════════ ABOUT ══════════════ -->
+  <section id="about">
+    <div class="about-img-wrap reveal">
+      <div class="about-img-accent"></div>
+      <div class="about-img-frame">
+        <img src="Main.png" alt="Shine Studios team" />
+      </div>
+      <div class="about-img-tag">
+        <strong>3+</strong>
+        Years of<br />experience
+      </div>
+    </div>
+    <div class="about-text reveal" style="transition-delay:.12s">
+      <div class="sec-label">About Us</div>
+      <h2 class="sec-title">The team<br />behind <em>the frames</em></h2>
+      <p class="about-intro">
+        We're Shine Studios — a content creation and social media agency that turns ideas into scroll-stopping content.
+        Our team specialises in short-form video for TikTok, Instagram Reels, and YouTube Shorts, with the range to go
+        long-form when the story demands it.
+      </p>
+      <p class="about-intro" style="margin-top:0">
+        We don't just edit videos — we build content strategies, manage social presences, and help brands and creators
+        grow their audiences through consistent, high-quality content.
+      </p>
+      <div class="about-chips">
+        <span class="chip">Photoshop</span>
+        <span class="chip">Premiere Pro</span>
+        <span class="chip">CapCut</span>
+        <span class="chip">Canva</span>
+        <span class="chip">Lightroom</span>
+        <span class="chip">Audition</span>
+        <span class="chip">DaVinci Resolve</span>
+      </div>
+      <div class="about-stats-row">
+        <div class="astat">
+          <div class="astat-n">20+</div>
+          <div class="astat-l">Projects</div>
+        </div>
+        <div class="astat">
+          <div class="astat-n">15+</div>
+          <div class="astat-l">Clients</div>
+        </div>
+        <div class="astat">
+          <div class="astat-n">∞</div>
+          <div class="astat-l">Ideas / day</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ WORK ══════════════ -->
+  <section id="work">
+    <div class="sec-label reveal">Portfolio</div>
+    <h2 class="sec-title reveal" style="transition-delay:.08s">Selected <em>Work</em></h2>
+
+    <!-- TABS -->
+    <div class="work-tabs reveal" style="transition-delay:.14s">
+      <button class="wtab active" onclick="switchTab('cc',this)">Content Creation</button>
+      <button class="wtab" onclick="switchTab('smm',this)">Social Media Management</button>
+    </div>
+
+    <!-- ── CONTENT CREATION PANEL ── -->
+    <div class="work-panel active" id="panel-cc">
+
+      <div class="folders-row">
+
+        <div class="folder" style="--folder-color:#FFE3D0" onclick="openLb('Travel Vlogger','yt')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <img src="thumb1.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="thumb2.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="thumb3.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Travel Vlogger</div>
+            <div class="folder-count">12 designs</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFEFD9" onclick="openLb('Aestheic Physician','aesthetic-physician')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <img src="apthumb1.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="apthumb2.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="apthumb3.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Aestheic Physican</div>
+            <div class="folder-count">20 videos</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFE9D6" onclick="openLb('Aesthetic Dentist','aesthetic-dentist')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <img src="adthumb1.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="adthumb2.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="adthumb3.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Aesthetic Dentist</div>
+            <div class="folder-count">8 videos</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFE9D6" onclick="openLb('AI Based Short Reels','ai')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <img src="aithumb1.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="aithumb2.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="aithumb3.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">AI Based Short Reels</div>
+            <div class="folder-count">8 videos</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFDDC2" onclick="openLb('Graphic & Post Design','gfx')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <img src="gpthumb1.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="gpthumb2.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+              <div class="fp">
+                <img src="gpthumb3.jpg" style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Graphic & Post Design</div>
+            <div class="folder-count">30+ designs</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SMM PANEL ── -->
+    <div class="work-panel" id="panel-smm">
+
+      <div class="folders-row">
+
+        <div class="folder" style="--folder-color:#FFE3D0" onclick="openLb('Account Management','mgmt')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <div class="fp-placeholder">Account 1</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Account 2</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Account 3</div>
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Account Management</div>
+            <div class="folder-count">5 brands managed</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFEFD9" onclick="openLb('Content Strategy','strategy')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <div class="fp-placeholder">Strategy</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Calendar</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Report</div>
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Content Strategy</div>
+            <div class="folder-count">Campaigns & planning</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFE9D6" onclick="openLb('Influencer Strategy','influencer')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <div class="fp-placeholder">Collab 1</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Collab 2</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Collab 3</div>
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Influencer Strategy</div>
+            <div class="folder-count">Outreach & results</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFDDC2" onclick="openLb('Growth & Analytics','analytics')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <div class="fp-placeholder">Growth</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Analytics</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Report</div>
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Growth & Analytics</div>
+            <div class="folder-count">Data-driven results</div>
+          </div>
+        </div>
+
+        <div class="folder" style="--folder-color:#FFD9BD" onclick="openLb('Paid Ads Content','ads')">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-previews">
+              <div class="fp">
+                <div class="fp-placeholder">Ad 1</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Ad 2</div>
+              </div>
+              <div class="fp">
+                <div class="fp-placeholder">Ad 3</div>
+              </div>
+            </div>
+            <div class="folder-arrow">→</div>
+            <div class="folder-name">Paid Ads Content</div>
+            <div class="folder-count">Social ad creatives</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p
+      style="margin-top:2.5rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center">
+      &nbsp; From Raw To Wow &nbsp;
+    </p>
+  </section>
+
+  <!-- ══════════════ SERVICES ══════════════ -->
+  <section id="services">
+    <div class="services-intro">
+      <div class="reveal">
+        <div class="sec-label">What We Offer</div>
+        <h2 class="sec-title">Services &amp;<br /><em>Expertise</em></h2>
+      </div>
+      <p class="reveal" style="transition-delay:.1s;font-size:.9rem;line-height:1.85;color:var(--muted)">
+        Whether you need one viral reel or a complete social media presence built from the ground up — our team has
+        the skills, tools, and creative instinct to deliver.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal">
+        <div class="svc-icon">🎬</div>
+        <div class="svc-title">Short Form Video Editing</div>
+        <p class="svc-desc">TikTok, Instagram Reels, YouTube Shorts — edited for retention, pacing, and virality. Hook
+          in the first 2 seconds, always.</p>
+      </div>
+      <div class="svc reveal" style="transition-delay:.07s">
+        <div class="svc-icon">📱</div>
+        <div class="svc-title">Social Media Management</div>
+        <p class="svc-desc">Full management of your social presence — content calendar, posting, engagement, and monthly
+          performance reports.</p>
+      </div>
+      <div class="svc reveal" style="transition-delay:.14s">
+        <div class="svc-icon">🖼️</div>
+        <div class="svc-title">Thumbnail Design</div>
+        <p class="svc-desc">High-CTR YouTube thumbnails that get the click. Bold, clear, and designed to stand out in a
+          crowded feed.</p>
+      </div>
+      <div class="svc reveal" style="transition-delay:.05s">
+        <div class="svc-icon">🤖</div>
+        <div class="svc-title">AI-Powered Content</div>
+        <p class="svc-desc">Cutting-edge AI-generated short reels and visuals that blend seamlessly with your brand's
+          human touch.</p>
+      </div>
+      <div class="svc reveal" style="transition-delay:.12s">
+        <div class="svc-icon">📊</div>
+        <div class="svc-title">Content Strategy</div>
+        <p class="svc-desc">A full content plan built around your goals — niche, audience, posting cadence, and
+          platform-specific strategy.</p>
+      </div>
+      <div class="svc reveal" style="transition-delay:.19s">
+        <div class="svc-icon">🎯</div>
+        <div class="svc-title">Influencer Strategy</div>
+        <p class="svc-desc">Identify the right collaborations, plan campaigns, and measure results. Turn creator
+          partnerships into real growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ NUMBERS ══════════════ -->
+  <section id="numbers">
+    <div class="numbers-text reveal">
+      <div class="sec-label">By the Numbers</div>
+      <div class="numbers-title">Results that<br /><em>speak</em> for<br />themselves.</div>
+    </div>
+    <div class="numbers-grid reveal" style="transition-delay:.15s">
+      <div class="nstat">
+        <div class="nstat-n">50+</div>
+        <div class="nstat-l">Projects Delivered</div>
+      </div>
+      <div class="nstat">
+        <div class="nstat-n">30+</div>
+        <div class="nstat-l">Happy Clients</div>
+      </div>
+      <div class="nstat">
+        <div class="nstat-n">3+</div>
+        <div class="nstat-l">Years Experience</div>
+      </div>
+      <div class="nstat">
+        <div class="nstat-n">1M+</div>
+        <div class="nstat-l">Views Generated</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ TESTIMONIALS ══════════════ -->
+  <section id="testimonials">
+    <div class="sec-label reveal">Clients</div>
+    <h2 class="sec-title reveal" style="transition-delay:.08s">Kind <em>Words</em></h2>
+    <div class="testi-grid">
+      <div class="tcard reveal">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">"From 0 to 18,000k+ organic followers within 6 months is truly amazing."</p>
+        <div class="tcard-author">
+          <div class="tcard-av">SA</div>
+          <div>
+            <div class="tcard-name">Prof. Syed Asad Ali</div>
+            <div class="tcard-role">Influencer, Educational</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal" style="transition-delay:.08s">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">"The production quality of the shorts and the thumbnails were excellent."</p>
+        <div class="tcard-author">
+          <div class="tcard-av">RK</div>
+          <div>
+            <div class="tcard-name">Arif Akbar</div>
+            <div class="tcard-role">Vlogger, Travel With Arif Akbar</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal" style="transition-delay:.16s">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">"The editing was great, and we're happy with their cooperative work behavior."</p>
+        <div class="tcard-author">
+          <div class="tcard-av">MN</div>
+          <div>
+            <div class="tcard-name">Dr. Daniyal Abbas</div>
+            <div class="tcard-role">Dentist</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTACT ══════════════ -->
+  <section id="contact">
+    <div class="contact-left reveal">
+      <div class="sec-label">Get in Touch</div>
+      <div class="contact-big">Let's<br /><em>Create</em><br />Together</div>
+      <p class="contact-sub">Have a project in mind? Want to grow your social presence? We'd love to hear about it.
+        Reach out on any platform below.</p>
+
+      <!--<div class="contact-ways">
+        <a href="mailto:hello@shinestudios.com" class="cway">
+          <div class="cway-icon">✉️</div>
+          <div>
+            <div class="cway-label">Email</div>
+            <div class="cway-val">hello@shinestudios.com</div>
+          </div>
+        </a>
+        <!--<a href="https://instagram.com/" target="_blank" class="cway">
+        <div class="cway-icon">📸</div>
+        <div>
+          <div class="cway-label">Instagram</div>
+          <div class="cway-val">@shine.studios</div>
+        </div>
+      </a>-->
+        <a href="https://wa.me/" target="_blank" class="cway">
+          <div class="cway-icon">💬</div>
+          <div>
+            <div class="cway-label">WhatsApp</div>
+            <div class="cway-val">+92 329 3956237</div>
+          </div>
+        </a>
+      </div>
+
+      <!--<div class="social-row" style="margin-top:2rem">
+      <a href="#" class="soc">IG</a>
+      <a href="#" class="soc">TT</a>
+      <a href="#" class="soc">YT</a>
+      <a href="#" class="soc">Be</a>
+      <a href="#" class="soc">in</a>
+    </div>-->
+    </div>
+
+    <div class="contact-right reveal" style="transition-delay:.15s">
+      <div class="cr-title">Ready to work?</div>
+      <p class="cr-desc">Here's what happens when you reach out — quick, no-fluff, professional.</p>
+      <ul class="cr-items">
+        <li>You reach out with your brief</li>
+        <li class="gold">We respond within 24 hours</li>
+        <li>We align on scope & timeline</li>
+        <li>Our team starts creating</li>
+        <li class="gold">You get results that grow</li>
+      </ul>
+      <div class="avail-badge">
+        <span class="avail-dot"></span>
+        Available for new projects
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer>
+    <div class="footer-logo">Shine<span>Studios</span></div>
+    <div class="footer-copy">© 2026 Shine Studios · Content & Social Media Agency</div>
+    <div class="footer-copy" style="color:var(--red)">From raw to wow.</div>
+  </footer>
+
+  <!-- ══════════════ LIGHTBOX ══════════════ -->
+  <div id="lightbox" onclick="if(event.target===this)closeLb()">
+    <div class="lb-box">
+      <div class="lb-head">
+        <div class="lb-title" id="lb-title">Project Name</div>
+        <button class="lb-close" onclick="closeLb()">✕</button>
+      </div>
+      <div class="lb-grid" id="lb-grid"></div>
+    </div>
+  </div>
+
+  <script>
+
+function toggleVideo(item) {
+    const video = item.querySelector('video');
+    const btn = item.querySelector('.play-btn');
+    if (video.paused) {
+      document.querySelectorAll('.lb-item video').forEach(v => {
+        v.pause();
+        const b = v.closest('.lb-item').querySelector('.play-btn');
+        if (b) b.style.display = 'flex';
+      });
+      video.play();
+      btn.style.display = 'none';
+    } else {
+      video.pause();
+      btn.style.display = 'flex';
+    }
+  }
+    /* ── Cursor ── */
+    const cur = document.getElementById('cur');
+    const isMob = window.innerWidth < 900;
+    if (isMob) document.body.classList.add('mobile');
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a,button,.folder,.svc,.tcard,.cway').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cur.style.width = '20px'; cur.style.height = '20px'; cur.style.opacity = '0.5';
+      });
+      el.addEventListener('mouseleave', () => {
+        cur.style.width = '8px'; cur.style.height = '8px'; cur.style.opacity = '1';
+      });
+    });
+
+    /* ── Nav scroll ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    /* ── Reveal ── */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+    /* ── Tabs ── */
+    function switchTab(id, btn) {
+      document.querySelectorAll('.work-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.wtab').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    /* ── Lightbox data ── */
+    const lbData = {
+      yt: { count: 8, label: 'YouTube Thumbnail' },
+      reels: { count: 10, label: 'Reel' },
+      ai: { count: 6, label: 'AI Reel' },
+      longform: { count: 4, label: 'Long Form Edit' },
+      gfx: { count: 9, label: 'Design' },
+      mgmt: { count: 5, label: 'Account' },
+      strategy: { count: 6, label: 'Strategy' },
+      influencer: { count: 5, label: 'Collab' },
+      analytics: { count: 4, label: 'Report' },
+      ads: { count: 6, label: 'Ad Creative' },
+    };
+
+
+    function openLb(title, key) {
+      document.getElementById('lb-title').textContent = title;
+      const grid = document.getElementById('lb-grid');
+      grid.innerHTML = '';
+
+      // ── CONTENT CREATION ──────────────────────────────
+
+      if (key === 'yt') {
+        const images = [
+          'thumb1.jpg',
+          'thumb2.jpg',
+          'thumb3.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      else if (key === 'reels') {
+        const videos = [
+          'reel1.mp4',
+          'reel2.mp4',
+          'reel3.mp4',
+          'reel4.mp4',
+        ];
+        videos.forEach(src => {
+          grid.innerHTML += `
+      <div class="lb-item" style="position:relative;cursor:pointer" onclick="toggleVideo(this)">
+        <video style="width:100%;height:100%;object-fit:cover" preload="metadata" playsinline>
+          <source src="${src}" type="video/mp4"/>
+        </video>
+        <div class="play-btn">
+          <div class="play-icon">▶</div>
+        </div>
+      </div>`;
+        });
+      }
+
+      else if (key === 'ai') {
+        const videos = [
+          'ai-reel1.mp4',
+          'ai-reel2.mp4',
+          'ai-reel3.mp4',
+        ];
+        videos.forEach(src => {
+          grid.innerHTML += `
+      <div class="lb-item" style="position:relative;cursor:pointer" onclick="toggleVideo(this)">
+        <video style="width:100%;height:100%;object-fit:cover" preload="metadata" playsinline>
+          <source src="${src}" type="video/mp4"/>
+        </video>
+        <div class="play-btn">
+          <div class="play-icon">▶</div>
+        </div>
+      </div>`;
+        });
+      }
+
+      else if (key === 'gfx') {
+        const images = [
+          'gfx1.jpg',
+          'gfx2.jpg',
+          'gfx3.jpg',
+          'gfx4.jpg',
+          'gfx5.jpg',
+          'gfx6.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      else if (key === 'aesthetic-physician') {
+        const images = [
+          'apthumb1.jpg',
+          'apthumb2.jpg',
+          'apthumb3.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+  <div class="lb-item">
+    <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+  </div>`;
+        });
+      }
+
+      else if (key === 'aesthetic-dentist') {
+        const images = [
+          'adthumb1.jpg',
+          'adthumb2.jpg',
+          'adthumb3.jpg',
+          'adthumb4.jpg',
+          'adthumb5.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+  <div class="lb-item">
+    <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+  </div>`;
+        });
+      }
+
+      // ── SOCIAL MEDIA MANAGEMENT ───────────────────────
+
+      else if (key === 'mgmt') {
+        const images = [
+          'mgmt1.jpg',
+          'mgmt2.jpg',
+          'mgmt3.jpg',
+          'mgmt4.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      else if (key === 'strategy') {
+        const images = [
+          'strategy1.jpg',
+          'strategy2.jpg',
+          'strategy3.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      else if (key === 'influencer') {
+        const images = [
+          'influencer1.jpg',
+          'influencer2.jpg',
+          'influencer3.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      else if (key === 'analytics') {
+        const images = [
+          'analytics1.jpg',
+          'analytics2.jpg',
+          'analytics3.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      else if (key === 'ads') {
+        const images = [
+          'ads1.jpg',
+          'ads2.jpg',
+          'ads3.jpg',
+          'ads4.jpg',
+        ];
+        images.forEach(src => {
+          grid.innerHTML += `
+        <div class="lb-item">
+          <img src="${src}" style="width:100%;height:100%;object-fit:cover"/>
+        </div>`;
+        });
+      }
+
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLb() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+    /* ── Mobile menu ── */
+    function toggleMob() {
+      document.getElementById('mobMenu').classList.toggle('open');
+    }
+    function closeMob() {
+      document.getElementById('mobMenu').classList.remove('open');
+    }
+  </script>
+</body>
+
+</html>
