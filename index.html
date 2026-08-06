@@ -224,7 +224,7 @@
 			/* ============ LIGHTBOX ============ */
 			#lightbox{
 			display:none;position:fixed;inset:0;z-index:500;
-			background:rgba(27,16,41,.75);backdrop-filter:blur(10px);
+			background:rgba(27,16,41,.85);backdrop-filter:blur(10px);
 			align-items:center;justify-content:center;padding:2rem;
 			}
 			#lightbox.open{display:flex}
@@ -236,11 +236,20 @@
 			font-size:1rem;cursor:pointer;transition:background .2s,color .2s,border-color .2s;
 			}
 			.lb-close:hover{background:var(--purple);border-color:var(--purple);color:var(--white)}
-			.lb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;padding:2rem;overflow-y:auto}
-			.lb-item{aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:var(--purple-pale);border:1px solid var(--line);position:relative}
-			.lb-item img,.lb-item video{width:100%;height:100%;object-fit:cover}
+			.lb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;padding:2rem;overflow-y:auto}
+			.lb-item{border-radius:10px;overflow:hidden;background:var(--purple-deep);border:1px solid var(--line);position:relative;display:flex;align-items:center;justify-content:center}
+			.lb-item img,.lb-item video{width:100%;height:100%;object-fit:contain;display:block}
 			.play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(27,16,41,.2);cursor:pointer}
 			.play-icon{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:1.1rem;padding-left:3px;color:var(--purple)}
+
+			/* MOBILE LIGHTBOX OPTIMIZATION */
+			@media(max-width:650px){
+			#lightbox{padding:.8rem .5rem}
+			.lb-box{max-height:92svh;border-radius:14px;width:100%}
+			.lb-head{padding:1rem 1.2rem}
+			.lb-grid{grid-template-columns:repeat(2, 1fr);gap:.6rem;padding:.8rem}
+			.lb-item{min-height:120px}
+			}
 
 			/* ============ SERVICES ============ */
 			#services{background:var(--white)}
@@ -482,9 +491,20 @@
 						</div>
 					</div>
 
-					<div class="wcard reveal" style="transition-delay:.05s" onclick="openLb('Aesthetic Physician','aesthetic-physician')">
+					<div class="wcard reveal" style="transition-delay:.05s" onclick="openLb('Geo News','gn')">
 						<div class="wcard-media">
-							<span class="wcard-tag">20 videos</span>
+							<span class="wcard-tag">Project Based</span>
+							<img src="gn1.jpg" alt="Geo News" />
+						</div>
+						<div class="wcard-body">
+							<div class="wcard-name">Geo News - Project Based</div>
+							<div class="wcard-count">Short-form content</div>
+						</div>
+					</div>
+
+					<div class="wcard big reveal" onclick="openLb('Aesthetic Physician','aesthetic-physician')">
+						<div class="wcard-media">
+							<span class="wcard-tag">12 designs</span>
 							<img src="apthumb1.jpg" alt="Aesthetic Physician" />
 						</div>
 						<div class="wcard-body">
@@ -749,6 +769,7 @@
 			'aesthetic-physician': { type:'img', files:['apthumb1.jpg','apthumb2.jpg','apthumb3.jpg'] },
 			'aesthetic-dentist': { type:'img', files:['adthumb1.jpg','adthumb2.jpg','adthumb3.jpg','adthumb4.jpg','adthumb5.jpg'] },
 			'ai': { type:'video', files:['ai-reel1.mp4','ai-reel2.mp4','ai-reel3.mp4'] },
+			'gn': { type:'img', files:['gn1.jpg','gn2.jpg'] },
 			'gfx': { type:'img', files:['gpthumb1.jpg','gpthumb2.jpg','gpthumb3.jpg','gpthumb4.jpg','gpthumb5.jpg','gpthumb6.jpg'] },
 			};
 
