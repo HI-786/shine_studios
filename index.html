@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -98,7 +97,7 @@
 			.mob-menu a{font-family:'Instrument Serif',serif;font-size:2.4rem;text-decoration:none;color:var(--ink)}
 			.mob-close{position:absolute;top:1.8rem;right:2rem;background:none;border:none;font-size:1.4rem;cursor:pointer}
 
-			/* ============ SIDE INDEX (signature element) ============ */
+			/* ============ SIDE INDEX ============ */
 			.side-index{
 			position:fixed;right:2.4rem;top:50%;transform:translateY(-50%);
 			z-index:150;display:flex;flex-direction:column;gap:1.1rem;
@@ -212,7 +211,6 @@
 			.wcard-name{font-family:'Instrument Serif',serif;font-size:1.25rem}
 			.wcard-count{font-size:.72rem;color:var(--muted);margin-top:.2rem}
 
-			/* first card spans 2 rows on desktop for rhythm */
 			.wcard.big{grid-row:span 2}
 			.wcard.big .wcard-media{aspect-ratio:5/9}
 
@@ -260,17 +258,6 @@
 			.svc-row{grid-template-columns:1fr;gap:.4rem}
 			.svc-idx{display:none}
 			}
-
-			/* ============ ABOUT ============ */
-			#about{background:var(--purple-pale)}
-			.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:4rem;align-items:center}
-			.about-img{aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;background:var(--purple-mid)}
-			.about-img img{width:100%;height:100%;object-fit:cover}
-			.about-text p{font-size:1rem;line-height:1.85;color:var(--ink);margin-bottom:1.6rem;max-width:520px}
-			.about-chips{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}
-			.chip{padding:.4rem 1rem;border:1px solid var(--line);border-radius:100px;font-size:.74rem;color:var(--muted);background:var(--white)}
-
-			@media(max-width:800px){.about-grid{grid-template-columns:1fr;gap:2.2rem}}
 
 			/* ============ NUMBERS ============ */
 			#numbers{background:var(--purple-deep);color:var(--white)}
@@ -354,7 +341,6 @@
 			<button class="mob-close" onclick="closeMob()">✕</button>
 			<a href="#work" onclick="closeMob()">Work</a>
 			<a href="#services" onclick="closeMob()">Services</a>
-			<a href="#about" onclick="closeMob()">About</a>
 			<a href="#testimonials" onclick="closeMob()">Clients</a>
 			<a href="#contact" onclick="closeMob()">Contact</a>
 		</div>
@@ -370,9 +356,6 @@
 				</li>
 				<li>
 					<a href="#services">Services</a>
-				</li>
-				<li>
-					<a href="#about">About</a>
 				</li>
 				<li>
 					<a href="#testimonials">Clients</a>
@@ -403,10 +386,6 @@
 				<span class="si-label">Services</span>
 				<span class="si-circle"></span>
 			</a>
-			<a href="#about" class="si-dot" data-sec="about">
-				<span class="si-label">About</span>
-				<span class="si-circle"></span>
-			</a>
 			<a href="#testimonials" class="si-dot" data-sec="testimonials">
 				<span class="si-label">Clients</span>
 				<span class="si-circle"></span>
@@ -417,7 +396,7 @@
 			</a>
 		</div>
 
-		<!-- ══════════ HERO ══════════ -->
+		<!-- HERO -->
 		<section id="hero">
 			<div class="hero-orb"></div>
 			<div class="hero-inner">
@@ -482,7 +461,7 @@
 			</div>
 		</div>
 
-		<!-- ══════════ WORK ══════════ -->
+		<!-- WORK -->
 		<section id="work">
 			<div class="sec-head">
 				<div class="sec-eyebrow reveal">Portfolio</div>
@@ -551,7 +530,7 @@
 			</div>
 		</section>
 
-		<!-- ══════════ SERVICES ══════════ -->
+		<!-- SERVICES -->
 		<section id="services">
 			<div class="sec-head">
 				<div class="sec-eyebrow reveal">What we offer</div>
@@ -594,7 +573,7 @@
 			</div>
 		</section>
 
-		<!-- ══════════ NUMBERS ══════════ -->
+		<!-- NUMBERS -->
 		<section id="numbers">
 			<div class="inner">
 				<div class="sec-eyebrow reveal" style="color:var(--purple-mid)">By the numbers</div>
@@ -620,7 +599,7 @@
 			</div>
 		</section>
 
-		<!-- ══════════ TESTIMONIALS ══════════ -->
+		<!-- TESTIMONIALS -->
 		<section id="testimonials">
 			<div class="sec-head">
 				<div class="sec-eyebrow reveal">Clients</div>
@@ -662,7 +641,7 @@
 			</div>
 		</section>
 
-		<!-- ══════════ CONTACT ══════════ -->
+		<!-- CONTACT -->
 		<section id="contact">
 			<div class="inner contact-grid">
 				<div class="reveal">
@@ -671,7 +650,7 @@
 						Let's <em class="serif-i">create</em> together
 					</div>
 					<p class="contact-sub">Have a project in mind, or want to grow your social presence? Send us a message — we reply within 24 hours.</p>
-					<a href="https://wa.me/" target="_blank" class="cway">
+					<a href="https://wa.me/923293956237" target="_blank" class="cway">
 						<div>
 							<div class="cway-label">WhatsApp</div>
 							<div class="cway-val">+92 329 3956237</div>
@@ -727,7 +706,7 @@
 			document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 			/* Side index scrollspy */
-			const secIds = ['hero','work','services','about','testimonials','contact'];
+			const secIds = ['hero','work','services','testimonials','contact'];
 			const dots = document.querySelectorAll('.si-dot');
 			const secObs = new IntersectionObserver(entries => {
 			entries.forEach(e => {
